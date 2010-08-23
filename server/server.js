@@ -3,12 +3,7 @@ var ws = require('websocket-server')
 var http = require('http')
 var sys = require('sys')
 
-var httpServer = http.createServer(function(req, res){
-  console.log("REQUEST: " + sys.inspect(req.headers))
-  console.log("RESPONSE: " + sys.inspect(res.headers))
-})
-
-var server = ws.createServer(httpServer)
+var server = ws.createServer(http.createServer())
 
 server.addListener("listening", function(){
   console.log("listening for connections on 3030")
@@ -25,8 +20,10 @@ server.addListener("connection", function(conn){
   }, 1000)
   
   conn.addListener('message', function(msg){
-    console.log(msg)
     doubler.num = msg
+  })
+  conn.addListener('close', function(){
+    console.log('connection closed by client')
   })
 })
 

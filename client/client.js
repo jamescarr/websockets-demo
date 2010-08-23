@@ -1,6 +1,6 @@
 $(function(){
   var logger = new Logger($('#console'))
-  var socket = createSocket(logger)
+  var socket = {}
   
   $('#numbertosend').keyup(function(){
     var value = $(this).val()
