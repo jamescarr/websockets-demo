@@ -1,4 +1,4 @@
-// requires websocket
+// requires websocket-server 
 var ws = require('websocket-server')
 var http = require('http')
 var sys = require('sys')
@@ -21,6 +21,7 @@ server.addListener("connection", function(conn){
   
   conn.addListener('message', function(msg){
     doubler.num = msg
+    //server.broadcast("Connection " + conn.id + " changed base number to " + msg)  
   })
   conn.addListener('close', function(){
     console.log('connection closed by client')
